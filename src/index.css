@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+.App {
+  width: 100%;
+  height: 100%;
+}
+
+/* 样式类替换 */
+.relative { position: relative; }
+.absolute { position: absolute; }
+.w-full { width: 100%; }
+.h-screen { height: 100vh; }
+.h-full { height: 100%; }
+.bg-slate-800 { background-color: #1e293b; }
+.text-white { color: white; }
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+.top-8 { top: 2rem; }
+.left-8 { left: 2rem; }
+.bottom-8 { bottom: 2rem; }
+.right-8 { right: 2rem; }
+.left-1\/2 { left: 50%; }
+.transform { transform: translateX(-50%); }
+.bg-black { background-color: black; }
+.bg-opacity-50 { background-color: rgba(0, 0, 0, 0.5); }
+.backdrop-blur-sm { backdrop-filter: blur(4px); }
+.rounded-xl { border-radius: 0.75rem; }
+.p-6 { padding: 1.5rem; }
+.p-4 { padding: 1rem; }
+.max-w-sm { max-width: 24rem; }
+.text-2xl { font-size: 1.5rem; }
+.font-bold { font-weight: bold; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mt-1 { margin-top: 0.25rem; }
+.text-gray-300 { color: #d1d5db; }
+.text-gray-400 { color: #9ca3af; }
+.text-sm { font-size: 0.875rem; }
+.text-xs { font-size: 0.75rem; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.space-x-2 > :not([hidden]) ~ :not([hidden]) { margin-left: 0.5rem; }
+.w-4 { width: 1rem; }
+.h-4 { height: 1rem; }
+.w-2 { width: 0.5rem; }
+.h-2 { height: 0.5rem; }
+.w-12 { width: 3rem; }
+.h-12 { height: 3rem; }
+.rounded-full { border-radius: 9999px; }
+.transition-all { transition: all 0.3s; }
+.duration-300 { transition-duration: 300ms; }
+.animate-spin { animation: spin 1s linear infinite; }
+.border-b-2 { border-bottom-width: 2px; }
+.border-white { border-color: white; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.text-center { text-align: center; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
