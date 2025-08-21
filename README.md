@@ -1,12 +1,44 @@
-# React + Vite
+# ThreeJS GeekMaker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The official 3D team website for GeekMaker (极创客), built with Three.js. Explore our projects, team members, and vision in an immersive web experience.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 3D Phone Model Showcase with scroll-based animation
+- Project information display ("To-Do 项目，由 Vue 倾力打造")
+- Smooth transitions and easing animations
+- Responsive design with TypeWriter text effects
+- "Coming Soon" message for upcoming projects
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **React 19.1.0** - UI framework
+- **Three.js 0.179.1** - 3D graphics and model rendering
+- **Vite 7.0.4** - Build tool and dev server
+- **GSAP 3.13.0** - Animation library
+- **Tailwind CSS 4.1.11** - Utility CSS
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+
+# Run linter
+npm run lint
+```
+
+## Project Structure
+
+- `src/components/FloatingPhoneShowcase.jsx` - Main 3D showcase component
+- `public/todo_phone.glb` - 3D phone model with custom screen content
+- `CLAUDE.md` - Development guidance for Claude Code
