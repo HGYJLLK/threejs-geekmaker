@@ -316,8 +316,22 @@ const FloatingPhoneShowcase = () => {
   ];
 
   return (
-    <div style={{ position: 'relative', backgroundColor: '#ffffff', fontFamily: 'system-ui, sans-serif' }}>
-      {/* **修改點**: 新增 TextType 組件的 CSS */}
+    <div style={{ position: 'relative', fontFamily: 'system-ui, sans-serif' }}>
+      {/* Light Rays Background */}
+      <div className="light-rays-background">
+        <div className="light-ray"></div>
+        <div className="light-ray"></div>
+        <div className="light-ray"></div>
+        <div className="light-ray"></div>
+        <div className="light-ray"></div>
+        <div className="light-ray"></div>
+        <div className="light-ray-subtle"></div>
+        <div className="light-ray-subtle"></div>
+        <div className="light-ray-subtle"></div>
+        <div className="light-ray-subtle"></div>
+      </div>
+
+      {/* **修改點**: 新增 TextType 組件的 CSS 和 Light Rays 背景 */}
       <style>{`
         .text-type {
           display: inline-block;
@@ -337,6 +351,155 @@ const FloatingPhoneShowcase = () => {
           99% { opacity: 0; }
           100% { opacity: 1; }
         }
+
+        /* Light Rays Background */
+        .light-rays-background {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          z-index: 0;
+          background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+          overflow: hidden;
+        }
+
+        .light-ray {
+          position: absolute;
+          background: linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.1) 20%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0.1) 80%,
+            rgba(255, 255, 255, 0) 100%
+          );
+          transform-origin: center center;
+          animation: rayMove 20s linear infinite;
+        }
+
+        .light-ray:nth-child(1) {
+          width: 2px;
+          height: 120vh;
+          top: -10vh;
+          left: 10%;
+          animation-delay: 0s;
+          animation-duration: 25s;
+        }
+
+        .light-ray:nth-child(2) {
+          width: 1px;
+          height: 130vh;
+          top: -15vh;
+          left: 25%;
+          animation-delay: -5s;
+          animation-duration: 30s;
+        }
+
+        .light-ray:nth-child(3) {
+          width: 3px;
+          height: 140vh;
+          top: -20vh;
+          left: 45%;
+          animation-delay: -10s;
+          animation-duration: 22s;
+        }
+
+        .light-ray:nth-child(4) {
+          width: 1px;
+          height: 125vh;
+          top: -12vh;
+          left: 65%;
+          animation-delay: -15s;
+          animation-duration: 28s;
+        }
+
+        .light-ray:nth-child(5) {
+          width: 2px;
+          height: 135vh;
+          top: -17vh;
+          left: 80%;
+          animation-delay: -8s;
+          animation-duration: 24s;
+        }
+
+        .light-ray:nth-child(6) {
+          width: 1px;
+          height: 115vh;
+          top: -8vh;
+          left: 92%;
+          animation-delay: -12s;
+          animation-duration: 26s;
+        }
+
+        @keyframes rayMove {
+          0% {
+            transform: translateY(-100vh) rotate(15deg);
+            opacity: 0;
+          }
+          10% {
+            opacity: 1;
+          }
+          90% {
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(100vh) rotate(15deg);
+            opacity: 0;
+          }
+        }
+
+        /* Additional subtle rays */
+        .light-ray-subtle {
+          position: absolute;
+          background: linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.05) 50%,
+            rgba(255, 255, 255, 0) 100%
+          );
+          width: 1px;
+          height: 100vh;
+          animation: rayMoveSubtle 35s linear infinite;
+        }
+
+        .light-ray-subtle:nth-child(7) {
+          left: 15%;
+          animation-delay: -20s;
+        }
+
+        .light-ray-subtle:nth-child(8) {
+          left: 35%;
+          animation-delay: -25s;
+        }
+
+        .light-ray-subtle:nth-child(9) {
+          left: 55%;
+          animation-delay: -30s;
+        }
+
+        .light-ray-subtle:nth-child(10) {
+          left: 75%;
+          animation-delay: -18s;
+        }
+
+        @keyframes rayMoveSubtle {
+          0% {
+            transform: translateY(-50vh) rotate(10deg);
+            opacity: 0;
+          }
+          20% {
+            opacity: 1;
+          }
+          80% {
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(150vh) rotate(10deg);
+            opacity: 0;
+          }
+        }
       `}</style>
       
       {/* SaaS-style Header */}
@@ -345,12 +508,12 @@ const FloatingPhoneShowcase = () => {
         top: 0,
         left: 0,
         right: 0,
-        zIndex: 10,
+        zIndex: 20,
         padding: '16px 32px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        background: 'rgba(255, 255, 255, 0.8)',
+        background: 'rgba(255, 255, 255, 0.9)',
         backdropFilter: 'blur(10px)',
         borderBottom: '1px solid rgba(0, 0, 0, 0.05)'
       }}>
@@ -382,7 +545,7 @@ const FloatingPhoneShowcase = () => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          zIndex: 5,
+          zIndex: 15,
           textAlign: 'center',
           opacity: projectInfoOpacity,
           transition: 'opacity 0.3s ease',
@@ -418,7 +581,7 @@ const FloatingPhoneShowcase = () => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          zIndex: 5,
+          zIndex: 15,
           textAlign: 'center',
           opacity: comingSoonOpacity,
           transition: 'opacity 0.3s ease',
@@ -457,13 +620,13 @@ const FloatingPhoneShowcase = () => {
           left: 0,
           width: '100%',
           height: '100vh',
-          zIndex: 1,
+          zIndex: 10,
           pointerEvents: 'none'
         }}
       />
 
       {/* Main Page Content */}
-      <main style={{ position: 'relative', zIndex: 2 }}>
+      <main style={{ position: 'relative', zIndex: 12 }}>
         <section style={{
           height: '100vh',
           display: 'flex',
