@@ -1,0 +1,15 @@
+# Force GitHub to recognize React/JSX files correctly
+*.jsx linguist-language=JavaScript
+*.js linguist-language=JavaScript
+
+# Mark build files and dependencies as generated/vendored
+dist/* linguist-generated=true
+node_modules/* linguist-vendored=true
+public/*.glb linguist-vendored=true
+
+# Documentation files
+*.md linguist-documentation=true
+CLAUDE.md linguist-documentation=true
+
+# Ensure React is detected as primary language
+src/** linguist-language=JavaScript
