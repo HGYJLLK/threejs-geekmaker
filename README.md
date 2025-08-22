@@ -5,7 +5,7 @@ The official 3D team website for GeekMaker (极创客), built with Three.js. Exp
 ## Features
 
 - 3D Phone Model Showcase with scroll-based animation
-- Project information display ("To-Do 项目，由 Vue 倾力打造")
+- Project information display ("To-Do 项目，由 React 倾力打造")
 - Smooth transitions and easing animations
 - Responsive design with TypeWriter text effects
 - "Coming Soon" message for upcoming projects

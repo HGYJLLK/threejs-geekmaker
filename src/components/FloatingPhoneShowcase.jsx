@@ -406,7 +406,7 @@ const FloatingPhoneShowcase = () => {
             fontWeight: '500',
             lineHeight: '1.2'
           }}>
-            由 Vue 倾力打造
+            由 React 倾力打造
           </p>
         </div>
       )}
