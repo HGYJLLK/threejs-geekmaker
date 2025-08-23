@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, createElement } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import LightRays from './LightRays';
 
 // SVG Star Icon Component
 const StarIcon = () => (
@@ -17,6 +18,20 @@ const StarIcon = () => (
     style={{ marginRight: '8px' }}
   >
     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+  </svg>
+);
+
+// Dark Mode Toggle Icon Components
+const SunIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="5"></circle>
+    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+  </svg>
+);
+
+const MoonIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
   </svg>
 );
 
@@ -109,6 +124,14 @@ const FloatingPhoneShowcase = () => {
   // --- State for "Coming Soon" message ---
   const [showComingSoon, setShowComingSoon] = useState(false);
   const [comingSoonOpacity, setComingSoonOpacity] = useState(0);
+  
+  // --- Dark/Light Mode State ---
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Update CSS variables for background color
+  useEffect(() => {
+    document.documentElement.style.setProperty('--bg-color', isDarkMode ? '#000000' : '#ffffff');
+  }, [isDarkMode]);
 
   useEffect(() => {
     if (!mountRef.current) return;
@@ -316,20 +339,39 @@ const FloatingPhoneShowcase = () => {
   ];
 
   return (
-    <div style={{ position: 'relative', fontFamily: 'system-ui, sans-serif' }}>
-      {/* Light Rays Background */}
-      <div className="light-rays-background">
-        <div className="light-ray"></div>
-        <div className="light-ray"></div>
-        <div className="light-ray"></div>
-        <div className="light-ray"></div>
-        <div className="light-ray"></div>
-        <div className="light-ray"></div>
-        <div className="light-ray-subtle"></div>
-        <div className="light-ray-subtle"></div>
-        <div className="light-ray-subtle"></div>
-        <div className="light-ray-subtle"></div>
+    <div style={{ 
+      position: 'relative', 
+      fontFamily: 'system-ui, sans-serif',
+      backgroundColor: isDarkMode ? '#000000' : '#ffffff',
+      color: isDarkMode ? '#ffffff' : '#333333',
+      minHeight: '100vh',
+      transition: 'background-color 0.3s ease, color 0.3s ease'
+    }}>
+      {/* Enhanced Light Rays Background using LightRays component */}
+      <div style={{ 
+        position: 'fixed', 
+        top: 0, 
+        left: 0, 
+        width: '100%', 
+        height: '100%', 
+        zIndex: 1,
+        pointerEvents: 'none'
+      }}>
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#ffffff"
+          raysSpeed={1.2}
+          lightSpread={0.6}
+          rayLength={1.5}
+          followMouse={true}
+          mouseInfluence={0.08}
+          noiseAmount={0.05}
+          distortion={0.03}
+          fadeDistance={0.8}
+          saturation={0.9}
+        />
       </div>
+
 
       {/* **修改點**: 新增 TextType 組件的 CSS 和 Light Rays 背景 */}
       <style>{`
@@ -352,157 +394,9 @@ const FloatingPhoneShowcase = () => {
           100% { opacity: 1; }
         }
 
-        /* Light Rays Background */
-        .light-rays-background {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-          z-index: 0;
-          background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-          overflow: hidden;
-        }
-
-        .light-ray {
-          position: absolute;
-          background: linear-gradient(
-            45deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.1) 20%,
-            rgba(255, 255, 255, 0.3) 50%,
-            rgba(255, 255, 255, 0.1) 80%,
-            rgba(255, 255, 255, 0) 100%
-          );
-          transform-origin: center center;
-          animation: rayMove 20s linear infinite;
-        }
-
-        .light-ray:nth-child(1) {
-          width: 2px;
-          height: 120vh;
-          top: -10vh;
-          left: 10%;
-          animation-delay: 0s;
-          animation-duration: 25s;
-        }
-
-        .light-ray:nth-child(2) {
-          width: 1px;
-          height: 130vh;
-          top: -15vh;
-          left: 25%;
-          animation-delay: -5s;
-          animation-duration: 30s;
-        }
-
-        .light-ray:nth-child(3) {
-          width: 3px;
-          height: 140vh;
-          top: -20vh;
-          left: 45%;
-          animation-delay: -10s;
-          animation-duration: 22s;
-        }
-
-        .light-ray:nth-child(4) {
-          width: 1px;
-          height: 125vh;
-          top: -12vh;
-          left: 65%;
-          animation-delay: -15s;
-          animation-duration: 28s;
-        }
-
-        .light-ray:nth-child(5) {
-          width: 2px;
-          height: 135vh;
-          top: -17vh;
-          left: 80%;
-          animation-delay: -8s;
-          animation-duration: 24s;
-        }
-
-        .light-ray:nth-child(6) {
-          width: 1px;
-          height: 115vh;
-          top: -8vh;
-          left: 92%;
-          animation-delay: -12s;
-          animation-duration: 26s;
-        }
-
-        @keyframes rayMove {
-          0% {
-            transform: translateY(-100vh) rotate(15deg);
-            opacity: 0;
-          }
-          10% {
-            opacity: 1;
-          }
-          90% {
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(100vh) rotate(15deg);
-            opacity: 0;
-          }
-        }
-
-        /* Additional subtle rays */
-        .light-ray-subtle {
-          position: absolute;
-          background: linear-gradient(
-            45deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.05) 50%,
-            rgba(255, 255, 255, 0) 100%
-          );
-          width: 1px;
-          height: 100vh;
-          animation: rayMoveSubtle 35s linear infinite;
-        }
-
-        .light-ray-subtle:nth-child(7) {
-          left: 15%;
-          animation-delay: -20s;
-        }
-
-        .light-ray-subtle:nth-child(8) {
-          left: 35%;
-          animation-delay: -25s;
-        }
-
-        .light-ray-subtle:nth-child(9) {
-          left: 55%;
-          animation-delay: -30s;
-        }
-
-        .light-ray-subtle:nth-child(10) {
-          left: 75%;
-          animation-delay: -18s;
-        }
-
-        @keyframes rayMoveSubtle {
-          0% {
-            transform: translateY(-50vh) rotate(10deg);
-            opacity: 0;
-          }
-          20% {
-            opacity: 1;
-          }
-          80% {
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(150vh) rotate(10deg);
-            opacity: 0;
-          }
-        }
       `}</style>
       
-      {/* SaaS-style Header */}
+      {/* SaaS-style Header with Enhanced Glassmorphism */}
       <header style={{
         position: 'fixed',
         top: 0,
@@ -513,28 +407,74 @@ const FloatingPhoneShowcase = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        background: 'rgba(255, 255, 255, 0.9)',
-        backdropFilter: 'blur(10px)',
-        borderBottom: '1px solid rgba(0, 0, 0, 0.05)'
+        background: isDarkMode ? 'rgba(0, 0, 0, 0.15)' : 'rgba(255, 255, 255, 0.15)',
+        backdropFilter: 'blur(20px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+        borderBottom: isDarkMode ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(255, 255, 255, 0.2)',
+        boxShadow: isDarkMode ? '0 8px 32px 0 rgba(0, 0, 0, 0.5)' : '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+        transition: 'all 0.3s ease'
       }}>
-        <a href="https://jck.hgyjllk.top/" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 'bold', fontSize: '20px', textDecoration: 'none', color: '#333' }}>极创客</a>
+        <a href="https://jck.hgyjllk.top/" target="_blank" rel="noopener noreferrer" style={{ 
+          fontWeight: 'bold', 
+          fontSize: '20px', 
+          textDecoration: 'none', 
+          color: isDarkMode ? '#ffffff' : '#333333',
+          transition: 'color 0.3s ease',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px'
+        }}>
+          <img src="/vite.svg" alt="Logo" style={{ 
+            width: '32px', 
+            height: '32px',
+            filter: isDarkMode ? 'invert(1)' : 'none' 
+          }} />
+          极创客
+        </a>
         <nav style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            style={{
+              background: 'none',
+              border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)'}`,
+              borderRadius: '8px',
+              padding: '8px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: isDarkMode ? '#ffffff' : '#333333',
+              transition: 'all 0.3s ease'
+            }}
+            title={isDarkMode ? '切换到浅色模式' : '切换到深色模式'}
+          >
+            {isDarkMode ? <SunIcon /> : <MoonIcon />}
+          </button>
           <a href="https://github.com/HGYJLLK?tab=repositories" target="_blank" rel="noopener noreferrer" style={{
             display: 'flex',
             alignItems: 'center',
             background: 'none',
-            border: '1px solid #ccc',
+            border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)'}`,
             borderRadius: '8px',
             padding: '8px 16px',
             cursor: 'pointer',
             fontSize: '14px',
             textDecoration: 'none',
-            color: '#333'
+            color: isDarkMode ? '#ffffff' : '#333333',
+            transition: 'all 0.3s ease'
           }}>
             <StarIcon /> us on Github
           </a>
-          <a href="https://blog.hgyjllk.top/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#333' }}>Blog</a>
-          <a href="https://todo.hgyjllk.top/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#333' }}>Pricing</a>
+          <a href="https://blog.hgyjllk.top/" target="_blank" rel="noopener noreferrer" style={{ 
+            textDecoration: 'none', 
+            color: isDarkMode ? '#ffffff' : '#333333',
+            transition: 'color 0.3s ease'
+          }}>Blog</a>
+          <a href="https://todo.hgyjllk.top/" target="_blank" rel="noopener noreferrer" style={{ 
+            textDecoration: 'none', 
+            color: isDarkMode ? '#ffffff' : '#333333',
+            transition: 'color 0.3s ease'
+          }}>Pricing</a>
         </nav>
       </header>
 
@@ -550,11 +490,11 @@ const FloatingPhoneShowcase = () => {
           opacity: projectInfoOpacity,
           transition: 'opacity 0.3s ease',
           pointerEvents: 'none',
-          color: '#333',
+          color: isDarkMode ? '#ffffff' : '#333333',
           fontWeight: 'bold'
         }}>
           <h2 style={{ 
-            fontSize: 'clamp(4rem, 12vw, 8rem)', 
+            fontSize: 'clamp(2.5rem, 8vw, 5rem)', 
             margin: '0 0 1rem 0',
             textShadow: '4px 4px 8px rgba(255,255,255,0.9)',
             fontWeight: 'bold',
@@ -563,13 +503,13 @@ const FloatingPhoneShowcase = () => {
             To-Do 项目
           </h2>
           <p style={{ 
-            fontSize: 'clamp(2.5rem, 8vw, 5rem)', 
+            fontSize: 'clamp(1.5rem, 5vw, 3rem)', 
             margin: 0,
             textShadow: '3px 3px 6px rgba(255,255,255,0.9)',
             fontWeight: '500',
             lineHeight: '1.2'
           }}>
-            由 React 倾力打造
+            由 Vue 倾力打造
           </p>
         </div>
       )}
@@ -586,7 +526,7 @@ const FloatingPhoneShowcase = () => {
           opacity: comingSoonOpacity,
           transition: 'opacity 0.3s ease',
           pointerEvents: 'none',
-          color: '#333',
+          color: isDarkMode ? '#ffffff' : '#333333',
           fontWeight: 'bold'
         }}>
           <h2 style={{ 
@@ -640,7 +580,14 @@ const FloatingPhoneShowcase = () => {
             transition: 'opacity 0.3s ease',
             display: showMainTitle ? 'block' : 'none'
           }}>
-            <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', fontWeight: 700, color: '#111827', margin: '0 0 1.5rem 0', lineHeight: 1.2 }}>
+            <h1 style={{ 
+              fontSize: 'clamp(2.5rem, 6vw, 4rem)', 
+              fontWeight: 700, 
+              color: isDarkMode ? '#ffffff' : '#111827', 
+              margin: '0 0 1.5rem 0', 
+              lineHeight: 1.2,
+              transition: 'color 0.3s ease'
+            }}>
               极创客工作室
             </h1>
             {/* **修改點**: 使用 TextType 組件 */}
@@ -649,7 +596,14 @@ const FloatingPhoneShowcase = () => {
               text={services}
               typingSpeed={75}
               pauseDuration={1500}
-              style={{ fontSize: '1.25rem', color: '#6b7280', lineHeight: 1.7, maxWidth: '800px', margin: '0 auto' }}
+              style={{ 
+                fontSize: '1.25rem', 
+                color: isDarkMode ? '#cccccc' : '#6b7280', 
+                lineHeight: 1.7, 
+                maxWidth: '800px', 
+                margin: '0 auto',
+                transition: 'color 0.3s ease'
+              }}
             />
           </div>
         </section>
